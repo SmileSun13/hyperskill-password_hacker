@@ -1,0 +1,12 @@
+type: hyperskill
+title: Password Hacker
+language: English
+summary: 'All sorts of creatures lurk around the Internet: trolls, pirates, miners
+  – and hackers. In this project you’ll play as a real hacker. You will have to connect
+  to a secret server using a password you don’t know. Your task is to write a Python
+  program that can hack this password and do so the quickest way possible.<br/><br/>Learn
+  more at <a href="https://hyperskill.org">https://hyperskill.org/projects/80</a>'
+programming_language: Python
+content:
+- Password Hacker
+mode: Study

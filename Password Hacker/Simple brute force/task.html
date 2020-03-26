@@ -1,0 +1,52 @@
+<h2>Description</h2>
+
+<p>So, the admin saw that someone was crawling his site with administrator rights, and it wasn't him. So he came up with a password, and now to log in as an admin, you need to first send the password. Perhaps the admin has set a password that is not very complex and contains a small number of characters so that it is easy to remember. Let's try to brute force all possible passwords to enter the site!</p>
+
+<p>So far the program is very simplistic: it’s time to improve it so that it can generate different variants of password and then try each variant as a password. The admin of the server doesn’t hide the information that passwords can be of different length and may include letters from <code>a</code> to <code>z</code> and numbers from <code>0</code> to <code>9</code>. You should start with <code>a,b,c,....,z,0,1,..aa,ab,ac,ad</code> and continue until your password is correct. It’s very important to try all the variants of every length because otherwise your program risks never finding the password!</p>
+
+<p>If the password is correct, you will receive the “<code>Connection success!</code>” message. Otherwise, you will see the “<code>Wrong password!</code>” message. The server cannot receive more than a million attempts, so if your program works indefinitely, you will see the unfortunate message “<code>Too many attempts</code>”.</p>
+
+<h2>Objectives</h2>
+
+<p>In this stage, you should write a program that:</p>
+
+<ol>
+	<li>Parses the command line and gets two arguments that are an IP address and port.</li>
+	<li>Tries different passwords until it finds the correct one.</li>
+	<li>Prints the password that it found.</li>
+</ol>
+
+<p>Note that you can connect to the server only once and then send messages many times. Don't connect to the server before sending every message.</p>
+
+<p>Note that here and throughout the project the password is different every time you check your code.</p>
+
+<h2>Example</h2>
+
+<p>The greater-than symbol followed by space (<code>&gt; </code>) represents the user input. Notice that it's not the part of the input.</p>
+
+<pre><code class="language-no-highlight">&gt; python hack.py localhost 9090
+pass</code></pre>
+
+<h2><strong>Hint</strong></h2>
+
+<p>The best way to create the iteration algorithm is to use <a href="https://anandology.com/python-practice-book/iterators.html" rel="noopener noreferrer nofollow">iterators and generators</a>. You may check out some useful videos about both <a href="https://www.youtube.com/watch?v=jTYiNjvnHZY" rel="noopener noreferrer nofollow">iterators</a> and <a href="https://www.youtube.com/watch?v=bD05uGo_sVI" rel="noopener noreferrer nofollow">generators</a> before you start working on completing the stage.</p>
+
+<p>If you get acquainted with generators, you’ll see that it’s definitely a good idea to use them in this project. First of all, you can create a function that will use a loop for checking the password variants. They are endless, of course, and this presents a problem: how can we store them in a single object? The answer is, we can use a generator. You can create your generator object and then loop for it in your hack-function. The hack-function should look like this:</p>
+
+<pre><code class="language-python">def hack():
+    passwords = generate_passwords()
+    for password in passwords:
+        if correct_password(password):
+            break
+    return password</code></pre>
+
+<p>To create a generator object, you should write a function that yields different password variants. This function should look like this:</p>
+
+<pre><code>def generate_passwords():
+    while True:
+        password = 'new variant'
+        yield password</code></pre>
+
+<p>Write your algorithm of different passwords generation in the ‘while’ loop and change the ‘password’ variable in every iteration.<br>
+  <br>
+To generate all possible variants of the password you don’t need to make up your own algorithm – luckily, a lot of standard ones have already been developed. For example, you can combine different iterators from the beautiful <a href="https://docs.python.org/3/library/itertools.html" rel="noopener noreferrer nofollow">itertools module</a>.</p>

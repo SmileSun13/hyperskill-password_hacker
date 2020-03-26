@@ -1,0 +1,45 @@
+<h2>Description</h2>
+
+<p>Looks like you can already call yourself a hacker! However, the situation becomes more complicated: the admin improves the server and our simple brute force attack is no longer working. Well, this shouldn't hold you back: you can provide your program with a prepared dictionary of typical passwords.</p>
+
+<p>You can find the <a href="https://stepik.org/media/attachments/lesson/255258/passwords.txt" rel="noopener noreferrer nofollow">dictionary of typical passwords here</a>. </p>
+
+<p>But the admin decided to outsmart us and changed the case of some letters in the new password so that we could not crack it using the password dictionary. Let's outsmart the admin and try all possible combinations of upper and lower case for each letter from all words of the password dictionary. We won't have to try so much - for a 6-letter word you'll get 64 possible combinations.</p>
+
+<p>Now you not only need to try each element of the dictionary but also change it by changing the case of some letters.</p>
+
+<p>Passwords of the new system are becoming longer and harder – uppercase has been added. The basics of combinatorics suggest that it has increased the time of hacking greatly, so you may need several days or even years to hack the system using a brute force algorithm. What you as a hacker can do is use a special dictionary of standard passwords. This method is very popular and usually yields good results. Now you have a big file, where each line is a standard password that is worth trying. Do not forget to try out changing the cases of different letters: for example, there is a word ‘qwerty’ in the dictionary, but the cunning admin sets it to ‘qWeRTy’. Your program should give the opportunity to hack such passwords, too.</p>
+
+<h2>Objectives</h2>
+
+<p>In this stage, you should write a program that:</p>
+
+<ol>
+	<li>Parses the command line and gets two arguments that are an IP address and port.</li>
+	<li>Finds the correct password using the list of typical passwords.</li>
+	<li>Prints the password that it found.</li>
+</ol>
+
+<p>Note that here and throughout the project the password is different every time you check your code.</p>
+
+<h2>Example</h2>
+
+<p>The greater-than symbol followed by space (<code>&gt; </code>) represents the user input. Notice that it's not the part of the input.</p>
+
+<pre><code class="language-no-highlight">&gt; python hack.py localhost 9090
+qWeRTy</code></pre>
+
+<h2><strong>Hint</strong></h2>
+
+<p>The dictionary file may be too large and hence the processing may take too long, so you can use the lazy method of reading. It means that we read the file line by line and don’t go to a new one until the previous line is processed. We can use the power of iterators to do it. Context managers can also help us read the file in the simplest way. If we use a <code>with</code> keyword, we do not need to think of a proper closing of the file. </p>
+
+<p>The function that reads our file should look like this:</p>
+
+<pre><code>def read_passwords():
+    with open('passwords.txt','r') as file:
+        yield from file</code></pre>
+
+<p>You can also rewrite your socket connection block using context managers so that it looks like this:</p>
+
+<pre><code class="language-python">with socket.socket() as sock:
+    sock.connect()</code></pre>

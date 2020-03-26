@@ -1,0 +1,90 @@
+<h2>Description</h2>
+
+<p>The server is becoming smarter along with your hacking program. Now the admin has tried and implemented a security system by login and password. And in order to access the site with admin privileges, you need to know his login and password. Fortunately, we have a dictionary of different logins and a very interesting vulnerability. You need to improve your program once again to hack the new system.</p>
+
+<p>Also, now the admin has made a complex password, which is guaranteed to be absent in the databases (it is generated from several random characters).</p>
+
+<p>The server now uses JSON to send messages.</p>
+
+<p>First of all, you should adjust your program so that it can send the combination of login and password in JSON format to the server. Your request should now look like this:</p>
+
+<pre><code class="language-no-highlight">{
+    "login": "admin",
+    "password": "12345678"
+}
+</code></pre>
+
+<p>The response that you receive looks like this (in case of the wrong login):</p>
+
+<pre><code class="language-no-highlight">{
+    "result": "Wrong login!"
+}</code></pre>
+
+<p>or (in case of the right admin login, but wrong password):</p>
+
+<pre><code class="language-no-highlight">{
+    "result": "Wrong password!"
+}</code></pre>
+
+<p>or (in case of some exception happened during login):</p>
+
+<pre><code class="language-no-highlight">{
+    "result": "Exception happened during login"
+}</code></pre>
+
+<p>or (in case of correct login and correct password):</p>
+
+<pre><code class="language-no-highlight">{
+    "result": "Connection success!"
+}</code></pre>
+
+<p>You can find the <a href="https://stepik.org/media/attachments/lesson/255258/logins.txt" rel="noopener noreferrer nofollow">dictionary of typical admin logins here</a>. </p>
+
+<p>Since you don’t know the login, you should try different variants from the dictionary as you did in the previous stage with passwords. You will know that the login is correct when you get the ‘wrong password’ result instead of ‘wrong login’. As for passwords, they’ve become yet harder, so a simple dictionary is no longer enough. Fortunately, a vulnerability has been found: the ‘exception’ message pops up when the symbols you tried for the password match the beginning of the correct one. </p>
+
+<h2>Objectives</h2>
+
+<p>Your algorithm is the following:</p>
+
+<ol>
+	<li>Try all logins with an empty password.</li>
+	<li>When you find the login, try out every possible password of length 1.</li>
+	<li>When an exception occurs, you know that you found the first letter of the password.</li>
+	<li>Use the found login and the found letter to find the second letter of the password.</li>
+	<li>Repeat it until you receive the ‘success’ message.</li>
+</ol>
+
+<p>Finally, your program should print the combination of login and password in JSON format. The examples show two ways of how the output can look like. See the hint to find out how to convert a dict object into a JSON string.</p>
+
+<h2>Examples</h2>
+
+<p>The greater-than symbol followed by space (<code>&gt; </code>) represents the user input. Notice that it's not the part of the input.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<pre><code class="language-no-highlight">&gt; python hack.py localhost 9090
+{
+    "login" : "superuser",
+    "password" : "aDgT9tq1PU0"
+}</code></pre>
+
+<p><strong>Example 2:</strong></p>
+
+<pre><code class="language-no-highlight">&gt; python hack.py localhost 9090
+{"login": "new_user", "password": "Sg967s"}</code></pre>
+
+<h2><strong>Hint</strong></h2>
+
+<p>You do not need to work with strings while creating a JSON string: you can use the inbuilt python JSON module to convert the dict object into a JSON string. This way, your requests will look like this:</p>
+
+<pre><code class="language-python">import json
+...
+combination = {‘login’: login, ‘password’: password}
+request = json.dumps(combination)</code></pre>
+
+<p>and responses will look like this:</p>
+
+<pre><code class="language-python">import json
+...
+answer = json.loads(response)
+print(answer[‘result’])</code></pre>

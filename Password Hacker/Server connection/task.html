@@ -1,0 +1,51 @@
+<h2>Description</h2>
+
+<p>Let's imagine an admin who runs a website on the Internet. The site is becoming very popular, a large number of people register on it. They fill in their profiles, leave information there that is not intended to be public (for example, information about their credit cards). </p>
+
+<p>But the admin has completely forgotten about the security of his site. Now you can log in to the site with admin privileges without even having a login and password!</p>
+
+<p>The first task in this project is to go to the admin's site, and the site will immediately give out all the secret information. Remember, as soon as you enter the site as an admin, it will automatically mean that you have obtained all the private data of the site. Therefore, the tasks of all other stages of the project will be to crack the admin password. At each stage it will be harder and harder to do. Good luck!</p>
+
+<p>Your program should connect to the server using an IP address and a port from the command line arguments. You can parse them if you import ‘<code>sys</code>’ module to your program: see on an <a href="https://www.pythonforbeginners.com/argv/more-fun-with-sys-argv" rel="noopener noreferrer nofollow">example</a> how to use it.</p>
+
+<p>You can use socket module to create this program. If you already know what socket means in computer science, you may use <a href="https://www.geeksforgeeks.org/socket-programming-python/" rel="noopener noreferrer nofollow">this example</a> to build your socket program in python. If you don’t know anything about networking and inter-process communication, there is no need to panic: simply consult <a href="https://realpython.com/python-sockets/" rel="noopener noreferrer nofollow">this comprehensive article</a> to understand the topic.</p>
+
+<h2>Objectives</h2>
+
+<p>Your program will receive command line arguments in this order:</p>
+
+<ol>
+	<li>IP address</li>
+	<li>port</li>
+	<li>message for sending</li>
+</ol>
+
+<p>The algorithm is the following:</p>
+
+<ol>
+	<li>Create a new socket.</li>
+	<li>Connect to a host and a port using the socket.</li>
+	<li>Send a message from the third command line argument to the host using the socket.</li>
+	<li>Receive the server’s response.</li>
+	<li>Print the server’s response.</li>
+	<li>Close the socket.</li>
+</ol>
+
+<h2>Examples</h2>
+
+<p>The greater-than symbol followed by space (<code>&gt; </code>) represents the user input. Notice that it's not the part of the input.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<pre><code class="language-no-highlight">&gt; python hack.py localhost 9090 password
+Wrong password!</code></pre>
+
+<p><strong>Example 2:</strong></p>
+
+<pre><code class="language-no-highlight">&gt; python hack.py 127.0.0.1 9090 qwerty
+Connection Success!
+</code></pre>
+
+<h2><strong>Hint</strong></h2>
+
+<p>To do this stage you should understand that the process of server-client communication is only the data exchange that computers can understand.  So it's only some arrays of bytes that are divided in some packets, frames, different sections of headers and blocks of our data that we need to use. It can be the text information, images or audios but it is still the byte array. So to send some information to the server we need to transform it into so called byte-arrays. When we recieve some information we should transform it into clear format (in this stage it's text). There are special functions : <code>encode()</code> and <code>decode()</code> that can transform strings into byte-arrays and backwards. To discover more about these functions, encoding codecs, python unicode support read <a href="https://docs.python.org/3/howto/unicode.html" rel="noopener noreferrer nofollow">this article</a> on the official python web site. If you only want to know how to use these functions in practice use <a href="http://www.datasciencemadesimple.com/encode-and-decode-a-string-in-python/" rel="noopener noreferrer nofollow">this example</a>.</p>
